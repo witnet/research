@@ -1,9 +1,9 @@
 # WITNET BRIDGE INTERFACE
 
-Witnet is a Decentralized Oracle Network aiming at serving smart contracts that cannot fetch data from the outside world. For such goal to be accomplished, the Witnet network and smart contract platforms need to have a way to interact with each other in a trustless way. The Witnet Bridge Interface (WBI) is a smart contract in charge of facilitaing this communication.
+Witnet is a Decentralized Oracle Network aiming at serving smart contracts that cannot fetch data from the outside world. For such goal to be accomplished, the Witnet network and smart contract platforms need to have a way to interact with each other in a trustless way. The Witnet Bridge Interface (WBI) is a smart contract in charge of facilitating this communication.
 
 ## Goals of the WBI
-The WBI will have 3 clear goals that needs to accomplish
+The WBI will have 3 clear goals that needs to accomplish:
 
 - It should facilitate the inclusion of a data request transactions specified by smart contracts in the Witnet blockchain.
 
@@ -27,7 +27,7 @@ We introduce the notion of __bridge nodes__, whose goal is to monitor the WBI lo
 
 The functionality provided by the bridge nodes can be clearly defined in three main points:
 
-- Data request reading from WBI and inclusion in WItnet
+- Data request reading from WBI and inclusion in Witnet
 - Result reading from Witnet and reporting to the WBI
 - Block header relay
 
@@ -84,7 +84,7 @@ __Data Request Inclusion__:
 
 - 1. A smart contract pushes a data request into the WBI specifying the rewards that both its inclusion and its result reporting will generate for the bridge node.
 
-- 2. A bridge node realizes its leadership position and reads all the unassigned requests that have been posted to the WBI contract. The WBI verifies the Proof of Eligibility and if valid, locks the eth for a certain amount of time. This will be rewarded to the bridge node upon PoI verification. If a valid PoI is not presented on time, eth ETC will be locked for the next bridge willing to include it.
+- 2. A bridge node realizes its leadership position and reads all the unassigned requests that have been posted to the WBI contract. For this purpose, it reports both a Proof of Eligibility and a signed addres to which the reward will be assigned. It is important that both the eligibility and signature are produced with the same private key. The WBI verifies the Proof of Eligibility and the signature and if valid, locks the eth for a certain amount of time. This will be rewarded to the bridge node upon PoI verification. If a valid PoI is not presented on time, the ETH will be locked for the next bridge willing to include it.
 
 - 3. The bridge node “cross-posts” the data request into the Witnet blockchain.
 
@@ -98,9 +98,11 @@ __Result Delivery__:
 
 - 7. The data request is resolved in Witnet and its result is stored in block *, whose header is relayed to the WBI.
 
-- 8. A (possibly different) bridge node realizes the result is ready to be sent back to the WBI, and posts it with the Proof of Eligibility and Proof of Inclusion. The contract internally verifies both proofs.
+- 8. A (possibly different) bridge node realizes the result is ready to be sent back to the WBI, and posts it with the Proof of Inclusion. The contract internally verifies the proof.
 
-- 9. Upon succesful verification of both proofs, the WBI sends the result reporting reward to the contract caller.
+- 9. Upon succesful verification, the WBI sends the result reporting reward to the contract caller.
+   - 9.1. Alternatively the result will be available in the contrat to be requested by the contract caller.
+
 
 - 10. The result is either reported back or read from the requesting Smart Contract.
 
@@ -130,28 +132,6 @@ solidity. Includes merkle proof verification.
 
 ## WBI API
 
-
-- __Post_DR__ (DR, reward)->Id: posts the data request script in the WBI while specifying the reward for:
-  - The data request poster node.
-  - The result deliver node.
-  - The block header relayer node(s).
-
-- __Upgrade_reward (Id, reward)__: Upgrades the reward of a data request with a specific Id in the Witnet Bridge Interface. This function can be used in case the initially specified reward is not sufficient incentive for bridge nodes to include the data request.
-
-- __Claim_DRs (Ids, PoE)__: Claim one or more data request for posting in Witnet. The PoE needs to be verified in the WBI.
-
-- __Claim_post_reward (Id, PoI, block)__: Upon provision of a Proof of Inclusion and the block and the data request id it belongs to, unlock the eth and reward the claimed address.
-
-- __Report_result (Id, PoI, PoE, block, result)__: Unlock eth to the senders address upon provision of:
-  - Id: The DR Id for which we are reporting the result.
-  - PoE validating the eligibility to become a leader.
-  - PoI validating the inclusion of a tally output for a data request.
-  - Block: the block number where the inclusion happened.
-  - result: The reult of the DR.
-
-- __Read_result (Id)__: Reads the result in the WBI for a data request Id.
-
-- __Report_block_header__: TBD.
-- __Propose_block__: TBD.
+The WBI API can be checked in https://github.com/witnet/witnet-ethereum-bridge
 
 
