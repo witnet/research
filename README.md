@@ -56,6 +56,7 @@ Witnet __research__ includes many different research items and publications inte
 - [Reputation][reputation]
 - [Bridge][bridge]
 - [P2P][p2p]
+- [Bribery][bribery]
 
 ## Licenses
 
@@ -68,3 +69,4 @@ Witnet research software is published under the [GNU General Public License v3.0
 [reputation]: https://github.com/witnet/research/blob/master/reputation/index.md
 [bridge]: https://github.com/witnet/research/blob/master/bridge/index.md
 [p2p]: https://github.com/witnet/research/blob/master/p2p/p2p.md
+[bribery]: https://github.com/witnet/research/blob/master/bribery/bribery.md
