@@ -1,6 +1,7 @@
 <div align="center">
-    <h1><img src="https://raw.githubusercontent.com/witnet/research/master/.github/header.png" alt="Witnet Research"/></a></h1>
-    <a href="https://github.com/witnet/research/blob/master/LICENSE"><img src="https://img.shields.io/github/license/witnet/research.svg" alt="FDLv1.3 Licensed" /></a>
+    <h1><img src=".github/header.png" alt="Witnet Research"/></h1>
+    <a href="https://github.com/witnet/research/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-GFDL-orange" alt="FDLv1.3 Licensed" /></a>
+    <a href="https://github.com/witnet/research/blob/master/LICENSE-GPL"><img src="https://img.shields.io/badge/software%20license-GPL-orange" alt="GPLv3.0 Licensed" /></a>
     <a href="https://github.com/witnet/witnet-rust/graphs/contributors"><img src="https://img.shields.io/github/contributors/witnet/research.svg" alt="GitHub contributors" /></a>
     <a href="https://github.com/witnet/research/commits/master"><img src="https://img.shields.io/github/last-commit/witnet/research.svg" alt="Github last commit" /></a>
     <br/><br/>
@@ -8,6 +9,7 @@
 </div>
 
 ## Design goals
+
 As any other blockchain, Witnet protocol aims to guarantee the common properties such as safety, liveness and fault tolerance. Yet, we would like to focus on the design goals that make Witnet different from other solutions.
 
 ### Fairness
@@ -30,6 +32,7 @@ As a decentralized oracle solution, Witnet’s main goal is to provide smart con
 - **Deters conflicts of interest**, provided by clear segregation of duties among all the actors involved in data request life cycles.
 
 ### Fully parameterizable
+
 Last but not least, we envision a decentralized oracle solution that should be as parameterizable as possible. The main goal is to make the platform is flexible enough to enable as many use cases as possible, which may require different types of setups, incentives and trade-offs.
 
 Some examples about this parameterization are:
