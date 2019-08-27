@@ -7,7 +7,7 @@ More precisely, given an Elliptic curve E, let lambda be a root of the character
 The algorithm is explained with more detail in http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.394.3037&rep=rep1&type=pdf*/
 
 /**
- * @title Scalar decompostion in Solydity
+ * @title Scalar decompostion in Solidity
  * @dev This algorithm computes the decomposition of an N-bit scalar in two scalars with half bit-length
  * @author Witnet Foundation
  */
