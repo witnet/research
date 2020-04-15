@@ -1,10 +1,10 @@
 # Block Relay in Witnet
 
-The Witnet Bridge Interface (WBI) is a core component of the Witnet protocol as it enables the communication between the smart contracts in Ethereum and Witnet. In order to trustlessly verify transactions included in a Witnet block, the Ethereum smart contract needs to be able to perform verifications of the so called Proofs of Inclusion (PoI). Assuming all Witnet block headers are available to the WBI, a bridge node simply needs to provide the merkle path that includes the transaction to be verified and that reaches the root in the block header.
+The Witnet Requests Board (WRB) is a core component of the Witnet protocol as it enables the communication between the smart contracts in Ethereum and Witnet. In order to trustlessly verify transactions included in a Witnet block, the Ethereum smart contract needs to be able to perform verifications of the so called Proofs of Inclusion (PoI). Assuming all Witnet block headers are available to the WRB, a bridge node simply needs to provide the merkle path that includes the transaction to be verified and that reaches the root in the block header.
 
-Obviously the aforementioned mechanism works just because we assumed the block header is available in the WBI. How to make this possible with a non PoW/PoS chain is a more challenging concern though. Without loss of generality, we will assume that the WBI has access to the Witnet block headers because they are stored in another contract in Ethereum that is called the **Block Relay**. Essentially, the goal is similar to that of building a Witnet **light client in Ethereum**. As any light client, the block relay contains the headers but performs little to no validations. We will focus thus on how these blocks are reported to the block relay.
+Obviously the aforementioned mechanism works just because we assumed the block header is available in the WRB. How to make this possible with a non PoW/PoS chain is a more challenging concern though. Without loss of generality, we will assume that the WRB has access to the Witnet block headers because they are stored in another contract in Ethereum that is called the **Block Relay**. Essentially, the goal is similar to that of building a Witnet **light client in Ethereum**. As any light client, the block relay contains the headers but performs little to no validations. We will focus thus on how these blocks are reported to the block relay.
 
-As with the WBI, only bridge nodes have access to both Witnet and Ethereum chains. Thus, bridge nodes should be in charge of reporting valid blocks that will later be used to verify PoIs in the WBI. We observe three main challenges:
+As with the WRB, only bridge nodes have access to both Witnet and Ethereum chains. Thus, bridge nodes should be in charge of reporting valid blocks that will later be used to verify PoIs in the WRB. We observe three main challenges:
 
 - **Integrity of the Block header**: the reporting protocol needs to guarantee the integrity and validity of the block header reported. From the block relay perspective, this essentially means that a block header does have enough acceptance as declared by a majority of Witnet reputation holders.
 - **Economic incentives**: the reporters should be economically incentivized to post correct block headers in the Block Relay contract.
@@ -14,9 +14,9 @@ As with the WBI, only bridge nodes have access to both Witnet and Ethereum chain
 
 Recall Witnet does not feature a PoW nor PoS consensus mechanisms, but rather it utilizes cryptographic sortition with biased probabilities depending on past behavior. The trustlessness property is thus more difficult to achieve as we cannot simply look at the chain with the longest amount of work/stake. Note that there are implications of a malicious header being inserted in the block relay severe, as:
 
-1. She can preconstruct a header including a result of a data request of her interest that was previously posted to the WBI. She can even make up a beneficial Active Reputation Set (ARS) and report it with the header. She reports the block header to the Block Relay contract, which accepts it by majority.
+1. She can preconstruct a header including a result of a data request of her interest that was previously posted to the WRB. She can even make up a beneficial Active Reputation Set (ARS) and report it with the header. She reports the block header to the Block Relay contract, which accepts it by majority.
 2. She later constructs a PoI for the header she inserted in the block relay, aiming at verifying the result of her interest.
-3. The WBI accepts it and stores it as the result to the data request, while the true result remains unreported.
+3. The WRB accepts it and stores it as the result to the data request, while the true result remains unreported.
 
  Simplifying, we need a groups of nodes to agree on the particular block header in a non-synchronous network. This traditionally has been resolved by **Bizantyne Fault Tolerance (BFT)** algorithms, that ensure that if there are no more than *f* number of attackers, the network is going to achieve liveness and safety properties. 
 ## Proposed Solution
@@ -101,7 +101,7 @@ The aforementioned approach has a big drawback: it would take 1000 verifications
 <em>Fig. 4: Pre-compiles in Byzantum</em>
 </p>
 
-With BLS signatures, it would only take one verification in the block relay contract to verify all the aggregated signatures from the ARS. At this stage, VRFs in the WBI would still be performed with the curve secp256k1, but `LAST_BEACON` messages would be signed with BLS.
+With BLS signatures, it would only take one verification in the block relay contract to verify all the aggregated signatures from the ARS. At this stage, VRFs in the WRB would still be performed with the curve secp256k1, but `LAST_BEACON` messages would be signed with BLS.
 
 <p align=center>
 <img src="./images/bls.png" width="750">
@@ -129,7 +129,7 @@ With that in mind the reward that each node would obtain for someone whose repor
 
 where |X| = x<sub>1</sub>, x<sub>2</sub>, ..., x<sub>N</sub> and each x<sub>i</sub> is the value proposed by selected node i.
 
-With this scheme all nodes are incentivized to set the fees as low as possible in favor of price competition. Ideally, all bridge nodes would set it low enough (taking into account the transaction gas and potential benefit derived from the WBI) so that they get an equal share of the rewards.
+With this scheme all nodes are incentivized to set the fees as low as possible in favor of price competition. Ideally, all bridge nodes would set it low enough (taking into account the transaction gas and potential benefit derived from the WRB) so that they get an equal share of the rewards.
 
 ## Stages
 

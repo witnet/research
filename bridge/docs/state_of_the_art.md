@@ -1,6 +1,6 @@
 # State of the Art on Bridges
 
-Since Witnet implements its own blockchain, it needs to interact with other networks to serve as an oracle for smart contracts. This is usually refered as *bridging* between two chains. The purpose of this document is to review the state of the art of different bridge implementations. This information will later be used to design and implement the __Witnet Bridge Interface__ (WBI).
+Since Witnet implements its own blockchain, it needs to interact with other networks to serve as an oracle for smart contracts. This is usually refered as *bridging* between two chains. The purpose of this document is to review the state of the art of different bridge implementations. This information will later be used to design and implement the __Witnet Requests Board__ (WRB).
 
 ## BTC relay
 
